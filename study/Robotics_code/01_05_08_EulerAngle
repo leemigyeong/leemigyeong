@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+import numpy as np
+from sympy.matrices import Matrix
+from sympy import symbols, atan2, sqrt, cos
+
+
+
+R_XYZ = Matrix([[ 0.353553390593274, -0.306186217847897, 0.883883476483184],
+            [ 0.353553390593274,  0.918558653543692, 0.176776695296637],
+            [-0.866025403784439,               0.25, 0.433012701892219]])
+
+alpha = atan2(R_XYZ[1,0],R_XYZ[0,0])
+beta  = atan2(-R_XYZ[2,0],sqrt(R_XYZ[0,0]*R_XYZ[0,0] + R_XYZ[1,0]*R_XYZ[1,0]))
+gamma = atan2(R_XYZ[2,1],R_XYZ[2,2])
+###### beta구할때 x의 부호는 고려안됨. 따라서 alpha와 gamma를 이용해서 부호를 고려한 x를 구할것. 즉 R_XYZ[0,0]/cos(alpha)
+beta_new  = atan2(-R_XYZ[2,0],R_XYZ[0,0]/cos(alpha))
+
+
+print("alpah (radians)= ", alpha)
+print("beta (radians)= ", beta)
+print("beta_new (radians)= ", beta_new)
+print("gamma (radians)= ", gamma)
+
